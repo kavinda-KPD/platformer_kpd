@@ -13,6 +13,7 @@ import {
   IPhysics2DContact,
   PhysicsSystem2D,
   ERaycast2DType,
+  director,
 } from "cc";
 const { ccclass, property } = _decorator;
 
@@ -149,17 +150,36 @@ export class Player extends Component {
     otherCollider: Collider2D,
     contact: IPhysics2DContact | null
   ) {
+    console.log(
+      "Contact with:",
+      otherCollider.node.name,
+      "contact:",
+      !!contact
+    );
+
+    // Check for GameOver collision (tag 3)
+    if (otherCollider.tag === 3) {
+      console.log("Player hit GameOver collider, loading GameOver scene.");
+      director.loadScene("GameOver");
+      return;
+    }
+
     // Check if the contact is from below (player landing on something)
     if (contact) {
       const normal = contact.getWorldManifold().normal;
-      // If the normal is pointing upward (y > 0), we're landing on something
+      console.log("Contact normal:", normal.x, normal.y);
       if (normal.y > 0.5) {
         this.isGrounded = true;
+        console.log("Player is now grounded on:", otherCollider.node.name);
       }
     } else {
       // Fallback: if no contact info, assume it's ground if it's not the player itself
       if (otherCollider.node !== this.node) {
         this.isGrounded = true;
+        console.log(
+          "Fallback: Player is now grounded on:",
+          otherCollider.node.name
+        );
       }
     }
   }
