@@ -109,15 +109,7 @@ export class Player extends Component {
   }
 
   jump() {
-    console.log(
-      "Jump called, isGrounded:",
-      this.isGrounded,
-      "rigidBody:",
-      !!this.rigidBody
-    );
-
     const canJump = this.checkGrounded();
-    console.log("Can jump:", canJump);
 
     if (this.rigidBody && canJump) {
       // Apply upward force for jumping
@@ -128,7 +120,6 @@ export class Player extends Component {
         true
       );
       this.isGrounded = false;
-      console.log("Jump applied with force:", this.jumpForce);
     } else {
       console.log("Cannot jump - not grounded or no rigid body");
     }
@@ -158,30 +149,17 @@ export class Player extends Component {
     otherCollider: Collider2D,
     contact: IPhysics2DContact | null
   ) {
-    console.log(
-      "Contact with:",
-      otherCollider.node.name,
-      "contact:",
-      !!contact
-    );
-
     // Check if the contact is from below (player landing on something)
     if (contact) {
       const normal = contact.getWorldManifold().normal;
-      console.log("Contact normal:", normal.x, normal.y);
       // If the normal is pointing upward (y > 0), we're landing on something
       if (normal.y > 0.5) {
         this.isGrounded = true;
-        console.log("Player is now grounded on:", otherCollider.node.name);
       }
     } else {
       // Fallback: if no contact info, assume it's ground if it's not the player itself
       if (otherCollider.node !== this.node) {
         this.isGrounded = true;
-        console.log(
-          "Fallback: Player is now grounded on:",
-          otherCollider.node.name
-        );
       }
     }
   }
@@ -191,13 +169,6 @@ export class Player extends Component {
     otherCollider: Collider2D,
     contact: IPhysics2DContact | null
   ) {
-    console.log(
-      "End contact with:",
-      otherCollider.node.name,
-      "contact:",
-      !!contact
-    );
-
     // Don't immediately set isGrounded to false on end contact
     // Let the velocity-based check handle it
   }
