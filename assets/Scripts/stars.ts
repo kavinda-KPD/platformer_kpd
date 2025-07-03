@@ -26,8 +26,6 @@ export class stars extends Component {
   ) {
     // Check if the other collider's tag is 1 (player tag)
     if (otherCollider.tag === 1) {
-      console.log("Player touched the stars!");
-
       // Destroy the star node itself
       this.node.destroy();
     }
