@@ -6,6 +6,7 @@ import {
   Contact2DType,
   IPhysics2DContact,
 } from "cc";
+import { GameManager } from "./GameManager";
 const { ccclass, property } = _decorator;
 
 @ccclass("stars")
@@ -26,6 +27,12 @@ export class stars extends Component {
   ) {
     // Check if the other collider's tag is 1 (player tag)
     if (otherCollider.tag === 1) {
+      // Add score before destroying the star
+      const gameManager = GameManager.getInstance();
+      if (gameManager) {
+        gameManager.addScore(1);
+      }
+
       // Destroy the star node itself
       this.node.destroy();
     }

@@ -17,6 +17,7 @@ import {
   Animation,
   AnimationClip,
 } from "cc";
+import { GameManager } from "./GameManager";
 const { ccclass, property } = _decorator;
 
 @ccclass("Player")
@@ -58,6 +59,12 @@ export class Player extends Component {
     // Register keyboard input events
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
+
+    // Reset score when game starts
+    const gameManager = GameManager.getInstance();
+    if (gameManager) {
+      gameManager.resetScore();
+    }
 
     // Start with idle animation
     this.playAnimation("boy_idle");

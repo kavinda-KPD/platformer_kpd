@@ -52,7 +52,7 @@
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 184
+      "__id__": 187
     },
     "_id": "905c1847-363e-451b-b754-8ca25dee0014"
   },
@@ -79,18 +79,21 @@
       },
       {
         "__id__": 130
+      },
+      {
+        "__id__": 181
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 181
+        "__id__": 184
       },
       {
-        "__id__": 182
+        "__id__": 185
       },
       {
-        "__id__": 183
+        "__id__": 186
       }
     ],
     "_prefab": null,
@@ -1724,10 +1727,16 @@
     "_enabled": true,
     "__prefab": null,
     "moveSpeed": 5,
-    "jumpForce": 15,
+    "jumpForce": 20,
     "groundCheckDistance": 0.1,
-    "idleAnimation": null,
-    "runAnimation": null,
+    "idleAnimation": {
+      "__uuid__": "15f53cdc-eec4-4200-927d-632ab928ae57",
+      "__expectedType__": "cc.AnimationClip"
+    },
+    "runAnimation": {
+      "__uuid__": "76462206-37ab-4b37-a665-8188d4b1e40b",
+      "__expectedType__": "cc.AnimationClip"
+    },
     "_id": "8cOn2oD79GXp9GlVssUW+L"
   },
   {
@@ -6036,6 +6045,138 @@
     "_id": "adb+D9JflMaYkg3CQUBmcu"
   },
   {
+    "__type__": "cc.Node",
+    "_name": "Score",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "_parent": {
+      "__id__": 2
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 182
+      },
+      {
+        "__id__": 183
+      }
+    ],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": -563.67,
+      "y": 318.718,
+      "z": 0
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_mobility": 0,
+    "_layer": 33554432,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": "27qbYvu+dAZZP3DVCypItd"
+  },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 181
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 104.45088195800781,
+      "height": 46.87200000000001
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_id": "75jaq3KjpLjY/fw9EyuPCF"
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 181
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_customMaterial": null,
+    "_srcBlendFactor": 2,
+    "_dstBlendFactor": 4,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_string": "Score : 0",
+    "_horizontalAlign": 0,
+    "_verticalAlign": 1,
+    "_actualFontSize": 26.1,
+    "_fontSize": 26.1,
+    "_fontFamily": "Arial",
+    "_lineHeight": 37.2,
+    "_overflow": 0,
+    "_enableWrapText": true,
+    "_font": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_isItalic": false,
+    "_isBold": false,
+    "_isUnderline": false,
+    "_underlineHeight": 2,
+    "_cacheMode": 0,
+    "_enableOutline": false,
+    "_outlineColor": {
+      "__type__": "cc.Color",
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 255
+    },
+    "_outlineWidth": 2,
+    "_enableShadow": false,
+    "_shadowColor": {
+      "__type__": "cc.Color",
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 255
+    },
+    "_shadowOffset": {
+      "__type__": "cc.Vec2",
+      "x": 2,
+      "y": 2
+    },
+    "_shadowBlur": 2,
+    "_id": "86BWs8wLVPwZGRlS8bJntm"
+  },
+  {
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
@@ -6106,28 +6247,28 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 185
-    },
-    "shadows": {
-      "__id__": 186
-    },
-    "_skybox": {
-      "__id__": 187
-    },
-    "fog": {
       "__id__": 188
     },
-    "octree": {
+    "shadows": {
       "__id__": 189
     },
-    "skin": {
+    "_skybox": {
       "__id__": 190
     },
-    "lightProbeInfo": {
+    "fog": {
       "__id__": 191
     },
-    "postSettings": {
+    "octree": {
       "__id__": 192
+    },
+    "skin": {
+      "__id__": 193
+    },
+    "lightProbeInfo": {
+      "__id__": 194
+    },
+    "postSettings": {
+      "__id__": 195
     },
     "bakedWithStationaryMainLight": false,
     "bakedWithHighpLightmap": false
