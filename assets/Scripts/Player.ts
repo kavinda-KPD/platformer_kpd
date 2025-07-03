@@ -14,6 +14,8 @@ import {
   PhysicsSystem2D,
   ERaycast2DType,
   director,
+  Animation,
+  AnimationClip,
 } from "cc";
 const { ccclass, property } = _decorator;
 
@@ -28,15 +30,24 @@ export class Player extends Component {
   @property
   groundCheckDistance: number = 0.1;
 
+  @property({ type: AnimationClip })
+  idleAnimation: AnimationClip | null = null;
+
+  @property({ type: AnimationClip })
+  runAnimation: AnimationClip | null = null;
+
   private rigidBody: RigidBody2D | null = null;
   private collider: Collider2D | null = null;
+  private animation: Animation | null = null;
   private isGrounded: boolean = false;
   private moveDirection: number = 0;
+  private currentAnimation: string = "idle";
 
   start() {
     // Get the RigidBody2D component
     this.rigidBody = this.getComponent(RigidBody2D);
     this.collider = this.getComponent(Collider2D);
+    this.animation = this.getComponent(Animation);
 
     // Set up collision detection
     if (this.collider) {
@@ -47,6 +58,9 @@ export class Player extends Component {
     // Register keyboard input events
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
+
+    // Start with idle animation
+    this.playAnimation("boy_idle");
   }
 
   onDestroy() {
@@ -81,12 +95,14 @@ export class Player extends Component {
     switch (event.keyCode) {
       case KeyCode.ARROW_LEFT:
       case KeyCode.KEY_A:
+        // If we were moving left, stop moving
         if (this.moveDirection === -1) {
           this.moveDirection = 0;
         }
         break;
       case KeyCode.ARROW_RIGHT:
       case KeyCode.KEY_D:
+        // If we were moving right, stop moving
         if (this.moveDirection === 1) {
           this.moveDirection = 0;
         }
@@ -134,6 +150,19 @@ export class Player extends Component {
 
       // Apply the velocity
       this.rigidBody.linearVelocity = velocity;
+
+      // Flip the player sprite based on movement direction
+      this.flipPlayerSprite();
+
+      // Play run animation when moving
+      if (this.currentAnimation !== "boy_run") {
+        this.playAnimation("boy_run");
+      }
+    } else {
+      // Play idle animation when not moving
+      if (this.currentAnimation !== "idle_boy") {
+        this.playAnimation("idle_boy");
+      }
     }
 
     // Update grounded state based on velocity
@@ -191,5 +220,35 @@ export class Player extends Component {
   ) {
     // Don't immediately set isGrounded to false on end contact
     // Let the velocity-based check handle it
+  }
+
+  playAnimation(animationName: string) {
+    if (this.animation) {
+      this.animation.play(animationName);
+      this.currentAnimation = animationName;
+    }
+  }
+
+  flipPlayerSprite() {
+    // Get the current scale
+    const currentScale = this.node.scale;
+
+    // Flip based on movement direction
+    if (this.moveDirection > 0) {
+      // Moving right - face right (positive scale)
+      this.node.setScale(
+        Math.abs(currentScale.x),
+        currentScale.y,
+        currentScale.z
+      );
+    } else if (this.moveDirection < 0) {
+      // Moving left - face left (negative scale)
+      this.node.setScale(
+        -Math.abs(currentScale.x),
+        currentScale.y,
+        currentScale.z
+      );
+    }
+    // If moveDirection is 0, keep the current scale (don't change direction when idle)
   }
 }
