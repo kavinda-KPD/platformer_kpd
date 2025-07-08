@@ -31,6 +31,9 @@ export class stars extends Component {
       const gameManager = GameManager.getInstance();
       if (gameManager) {
         gameManager.addScore(1);
+        console.log("Star collected! Score added.");
+      } else {
+        console.error("GameManager not found! Cannot add score.");
       }
 
       // Destroy the star node itself

@@ -9,15 +9,24 @@ export class GameManager extends Component {
   private static instance: GameManager | null = null;
   private score: number = 0;
 
-  public static getInstance(): GameManager {
-    return GameManager.instance!;
+  public static getInstance(): GameManager | null {
+    if (!GameManager.instance) {
+      console.error(
+        "GameManager instance not found! Make sure GameManager component is attached to a node in the scene."
+      );
+    }
+    return GameManager.instance;
   }
 
   start() {
     // Set up singleton pattern
     if (GameManager.instance === null) {
       GameManager.instance = this;
+      console.log("GameManager initialized successfully");
     } else {
+      console.warn(
+        "Multiple GameManager instances detected! Destroying duplicate."
+      );
       this.node.destroy();
       return;
     }
@@ -27,6 +36,11 @@ export class GameManager extends Component {
       const scoreNode = find("Score");
       if (scoreNode) {
         this.scoreLabel = scoreNode.getComponent(Label);
+        console.log("Score label found and connected");
+      } else {
+        console.error(
+          "Score node not found in scene! Make sure there's a node named 'Score' with a Label component."
+        );
       }
     }
 
@@ -47,11 +61,14 @@ export class GameManager extends Component {
   public resetScore(): void {
     this.score = 0;
     this.updateScoreDisplay();
+    console.log("Score reset to 0");
   }
 
   private updateScoreDisplay(): void {
     if (this.scoreLabel) {
       this.scoreLabel.string = `Score : ${this.score}`;
+    } else {
+      console.warn("Score label not available for display update");
     }
   }
 }
