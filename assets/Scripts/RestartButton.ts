@@ -13,6 +13,6 @@ export class RestartButton extends Component {
 
   onPlayClicked() {
     // Replace 'Game' with the exact name of your game scene asset (case-sensitive)
-    director.loadScene("Game");
+    director.loadScene("MainMenu");
   }
 }
